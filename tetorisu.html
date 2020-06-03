@@ -4,11 +4,18 @@
     <canvas id = "can"></canvas>
     <script>
 
+      // ブロック一つのサイズ（ピクセル）
+      const BLOCK_SIZE = 30;
+      // テトロミノのサイズ
+      
+
       let can = document.getElementById("can");
       let con = can.getContext("2d");
 
       con.fillStyle = "red";
-      con.fillRect(0,0, 50,50);
+      con.fillRect(0,0, BLOCK_SIZE, BLOCK_SIZE);
+
+
 
     </script>
   </body>
