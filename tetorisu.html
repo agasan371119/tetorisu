@@ -4,6 +4,10 @@
     <canvas id = "can"></canvas>
     <script>
 
+      //ゲームスピード
+    　const GAME_SPEED = 300;
+
+
       //フィールドサイズ
       const FIELD_COL = 10;
       const FIELD_ROW = 20;
@@ -37,8 +41,17 @@
       let tetro_x = 0;
       let tetro_y = 0;
 
-      //フィールド本体
+      //フィールドの中身
+
       let field = [];
+
+      init();
+      drawAll();
+
+      setInterval(dropTetro, GAME_SPEED);
+
+
+
       //初期化
       function init() {
 
@@ -53,8 +66,6 @@
         field[19][0] = 1;
         field[19][9] = 1;
       }
-      init();
-      drawAll();
 
       //ブロックを１つ描画する
       function drawBlock(x, y) {
@@ -99,11 +110,12 @@
             let nx = tetro_x + mx + x;
             let ny = tetro_y + my + y;
             if(ntetro[y][x]) {
-              if(field[ny][nx] ||
+              if(field　[ny]　[nx] ||
                 ny < 0 ||
                 nx < 0 ||
                 ny >= FIELD_ROW ||
                 nx >= FIELD_COL)
+                
 
               return false;
             }
@@ -125,6 +137,30 @@
           }
         }
         return ntetro;
+      }
+
+      //ブロックの固定
+      function fixTetro() {
+        for(let y = 0; y < TETRO_SIZE; y++){
+
+          for(let x = 0; x < TETRO_SIZE; x++){
+            if(tetro[x][y]) {
+              field[tetro_y + y][tetro_x + x] = 1;
+            }
+          }
+        }
+      }
+
+      //ブロックの落ちる処理
+      function dropTetro() {
+        if (checkMove( 0, 1))tetro_y++;
+        else {
+          fixTetro();
+          tetro_x = 0;
+          tetro_y = 0;
+        }
+
+        drawAll();
       }
 
       //キーボードが押された時の処理
